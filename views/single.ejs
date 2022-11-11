@@ -1,0 +1,88 @@
+<%- include('./partials/header.ejs', {data: {title} }); %>
+
+
+    <main>
+        <section class="data-section my-8">
+            <div class="container mx-auto px-3 md:px-0">
+                <h2 class="text-center text-3xl font-semibold mb-4">Incident #<%= data.incidentId %> Data</h2>
+                <div class="max-w-2xl p-5 rounded-lg shadow-lg my-3 w-full mx-auto">
+                    <form id="form">
+                        <div class="mb-3">
+                            <label for="">Incident Id:</label>
+                            <input type="text" name="incidentId"
+                                class="w-full py-2 px-3 text-sm bg-slate-200 rounded outline-none"
+                                value="<%= data.incidentId %>">
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Created By:</label>
+                            <input type="text" name="createdBy"
+                                class="w-full py-2 px-3 text-sm bg-slate-200 rounded outline-none"
+                                value="<%= data.createdBy %>">
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Assigned To:</label>
+                            <input type="text" name="assignTo"
+                                class="w-full py-2 px-3 text-sm bg-slate-200 rounded outline-none"
+                                value="<%= data.assignedTo %>">
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Description:</label>
+                            <input type="text" name="description"
+                                class="w-full py-2 px-3 text-sm bg-slate-200 rounded outline-none"
+                                value="<%= data.description %>">
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Date:</label>
+                            <input type="text" name="date"
+                                class="w-full py-2 px-3 text-sm bg-slate-200 rounded outline-none"
+                                value="<%= data.date %>">
+                        </div>
+                        <div class="mb-6">
+                            <label for="">State:</label>
+                            <select name="state" id="" class="w-full py-2 px-3 text-sm bg-slate-200 rounded outline-none" value="<%= data.state %>">
+                                <option value="during">During</option>
+                                <option value="schedule">Schedule</option>
+                                <option value="cancel">Cancel</option>
+                                <option value="complete">Complete</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <input type="hidden" name="id" value="<%= data._id %>">
+                            <button
+                                class="bg-teal-400 text-white py-2 px-5 rounded w-full text-center hover:bg-teal-600 transition-all">Update</button>
+                        </div>
+                    </form>
+                    <button
+                        class="bg-red-400 text-white py-2 px-5 rounded w-full text-center hover:bg-red-600 transition-all"
+                        onclick="handleDelete('<%= data._id %>')">Delete</button>
+                </div>
+            </div>
+        </section>
+
+        <script>
+
+
+            const form = document.getElementById("form")
+            form.onsubmit = (e) => {
+                e.preventDefault()
+                const { incidentId, createdBy, assignTo, description, date, state, id } = e.target
+                fetch(`http://localhost:5000/${id.value}`, {
+                    method: "PUT",
+                    headers: {
+                        'Content-type': "application/json"
+                    },
+                    body: JSON.stringify({ incidentId: incidentId.value, createdBy: createdBy.value, assignTo: assignTo.value, description: description.value, date: date.value, state: state.value })
+                }).then(res => res.json()).then(data => data ? window.location.href = "/" : console.log(data))
+            }
+
+            const handleDelete = (id) => {
+                fetch(`/${id}`, {
+                    method: "DELETE",
+                }).then(res => res.json()).then(data => data ? window.location.href = "/" : console.log(data))
+            }
+        </script>
+
+    </main>
+
+
+    <%- include('./partials/footer.ejs'); %>
