@@ -4,14 +4,13 @@
     <main>
         <section class="data-section my-8">
             <div class="container mx-auto px-3 md:px-0">
-                <h2 class="text-center text-3xl font-semibold mb-4">Incident #<%= data.incidentId %> Data</h2>
+                <h2 class="text-center text-3xl font-semibold mb-4">Incident #<%= data._id %> Data</h2>
                 <div class="max-w-2xl p-5 rounded-lg shadow-lg my-3 w-full mx-auto">
                     <form id="form">
                         <div class="mb-3">
                             <label for="">Incident Id:</label>
-                            <input type="text" name="incidentId"
-                                class="w-full py-2 px-3 text-sm bg-slate-200 rounded outline-none"
-                                value="<%= data.incidentId %>">
+                            <input type="text" class="w-full py-2 px-3 text-sm bg-slate-200 rounded outline-none"
+                                value="<%= data._id %>" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="">Created By:</label>
@@ -39,11 +38,16 @@
                         </div>
                         <div class="mb-6">
                             <label for="">State:</label>
-                            <select name="state" id="" class="w-full py-2 px-3 text-sm bg-slate-200 rounded outline-none" value="<%= data.state %>">
-                                <option value="during">During</option>
-                                <option value="schedule">Schedule</option>
-                                <option value="cancel">Cancel</option>
-                                <option value="complete">Complete</option>
+                            <select name="state" id=""
+                                class="w-full py-2 px-3 text-sm bg-slate-200 rounded outline-none">
+                                <option value="during" selected="<%=data.state=='during' ? true: false %>">During
+                                </option>
+                                <option value="schedule" selected="<%=data.state=='schedule' ? true: false %>">Schedule
+                                </option>
+                                <option value="cancel" selected="<%=data.state=='cancel' ? true: false %>">Cancel
+                                </option>
+                                <option value="complete" selected="<%=data.state=='complete' ? true: false %>">Complete
+                                </option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -65,13 +69,13 @@
             const form = document.getElementById("form")
             form.onsubmit = (e) => {
                 e.preventDefault()
-                const { incidentId, createdBy, assignTo, description, date, state, id } = e.target
+                const { createdBy, assignTo, description, date, state, id } = e.target
                 fetch(`http://localhost:5000/${id.value}`, {
                     method: "PUT",
                     headers: {
                         'Content-type': "application/json"
                     },
-                    body: JSON.stringify({ incidentId: incidentId.value, createdBy: createdBy.value, assignTo: assignTo.value, description: description.value, date: date.value, state: state.value })
+                    body: JSON.stringify({ createdBy: createdBy.value, assingedTo: assignTo.value, description: description.value, date: date.value, state: state.value })
                 }).then(res => res.json()).then(data => data ? window.location.href = "/" : console.log(data))
             }
 

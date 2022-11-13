@@ -44,3 +44,18 @@ export const deleteData = async (req, res) => {
 
     res.status(201).json(data)
 }
+
+export const addNewData = async (req, res) => {
+
+    const data = await DataModel.create(req.body)
+
+    res.status(201).json(data)
+}
+
+export const addDataPage = async (req, res) => {
+
+    const payload = {
+        title: "Add New Data"
+    }
+    res.status(201).render("add", payload)
+}
