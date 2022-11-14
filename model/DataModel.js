@@ -5,7 +5,7 @@ const DataSchema = mongoose.Schema({
     createdBy: String,
     assignedTo: String,
     description: String,
-    data: Date,
+    Date: String,
     state: String
 })
 
