@@ -40,7 +40,7 @@
                             <label for="">State:</label>
                             <select name="state" id=""
                                 class="w-full py-2 px-3 text-sm bg-slate-200 rounded outline-none">
-                                <option value="during" selected="<%=data.state=='during' ? true: false %>">During
+                                <option value="In Queue" selected="<%=data.state=='In Queue' ? true: false %>">In Queue
                                 </option>
                                 <option value="schedule" selected="<%=data.state=='schedule' ? true: false %>">Schedule
                                 </option>
@@ -70,7 +70,7 @@
             form.onsubmit = (e) => {
                 e.preventDefault()
                 const { createdBy, assignTo, description, date, state, id } = e.target
-                fetch(`/${id.value}`, {
+                fetch(`http://localhost:5000/${id.value}`, {
                     method: "PUT",
                     headers: {
                         'Content-type': "application/json"
