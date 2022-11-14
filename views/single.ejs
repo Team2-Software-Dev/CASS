@@ -70,7 +70,7 @@
             form.onsubmit = (e) => {
                 e.preventDefault()
                 const { createdBy, assignTo, description, date, state, id } = e.target
-                fetch(`http://localhost:5000/${id.value}`, {
+                fetch(`/${id.value}`, {
                     method: "PUT",
                     headers: {
                         'Content-type': "application/json"

@@ -58,7 +58,7 @@
             form.onsubmit = (e) => {
                 e.preventDefault()
                 const { incidentId, createdBy, assignTo, description, date, state } = e.target
-                fetch(`http://localhost:5000/add/`, {
+                fetch(`/add/`, {
                     method: "POST",
                     headers: {
                         'Content-type': "application/json"
