@@ -69,13 +69,13 @@
             const form = document.getElementById("form")
             form.onsubmit = (e) => {
                 e.preventDefault()
-                const { createdBy, assignTo, description, date, state, id } = e.target
+                const { incidentId, createdBy, assignTo, description, date, state, id } = e.target
                 fetch(`http://localhost:5000/${id.value}`, {
                     method: "PUT",
                     headers: {
                         'Content-type': "application/json"
                     },
-                    body: JSON.stringify({ createdBy: createdBy.value, assingedTo: assignTo.value, description: description.value, date: date.value, state: state.value })
+                    body: JSON.stringify({ incidentId: incidentId.value, createdBy: createdBy.value, assignTo: assignTo.value, description: description.value, date: date.value, state: state.value })
                 }).then(res => res.json()).then(data => data ? window.location.href = "/" : console.log(data))
             }
 
