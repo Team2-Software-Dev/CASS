@@ -2,11 +2,25 @@ import DataModel from "../model/DataModel.js"
 
 export const homePage = async (req, res) => {
 
-    const data = await DataModel.find()
-
-    const payload = {
-        title: "Home Page",
-        data: data
+    let data
+    let payload
+    if (req.query) {
+        const sortBy = req.query.sortBy
+        const orderBy = req.query.orderBy
+        data = await DataModel.find({}).sort([[sortBy, orderBy]])
+        payload = {
+            title: "Home Page",
+            data: data,
+            sortBy: sortBy,
+            orderBy: orderBy
+        }
+    }
+    else {
+        data = await DataModel.find()
+        payload = {
+            title: "Home Page",
+            data: data
+        }
     }
 
     res.status(200).render("home", payload)
@@ -43,4 +57,19 @@ export const deleteData = async (req, res) => {
     const data = await DataModel.findByIdAndRemove(dataId)
 
     res.status(201).json(data)
+}
+
+export const addNewData = async (req, res) => {
+
+    const data = await DataModel.create(req.body)
+
+    res.status(201).json(data)
+}
+
+export const addDataPage = async (req, res) => {
+
+    const payload = {
+        title: "Add New Data"
+    }
+    res.status(201).render("add", payload)
 }
