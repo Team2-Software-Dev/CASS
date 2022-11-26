@@ -1,11 +1,10 @@
 import mongoose from "mongoose";
 
-const DataSchema = mongoose.Schema({
-    incidentId: Number,
+const DataSchema = mongoose.Schema({    
     createdBy: String,
     assignedTo: String,
     description: String,
-    Date: String,
+    date: String,
     state: String
 })
 
