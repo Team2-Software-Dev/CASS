@@ -16,13 +16,19 @@
                             <label for="">Created By:</label>
                             <input type="text" name="createdBy"
                                 class="w-full py-2 px-3 text-sm bg-slate-200 rounded outline-none"
-                                value="<%= data.createdBy %>">
+                                value="<%= data.createdBy %>" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="">Assigned To:</label>
-                            <input type="text" name="assignTo"
-                                class="w-full py-2 px-3 text-sm bg-slate-200 rounded outline-none"
-                                value="<%= data.assignedTo %>">
+                            <select name="assignedTo" id=""
+                                class="w-full py-2 px-3 text-sm bg-slate-200 rounded outline-none">
+                                <option value="<%= data.assignedTo %>" selected disabled hidden><%= data.assignedTo %> (Assigned)</option>
+                                <option value="Shreyas">Shreyas</option>
+                                <option value="Amir">Amir</option>
+                                <option value="Ahmed">Ahmed</option>
+                                <option value="Tobby">Tobby</option>
+                                <option value="Anthony">Anthony</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="">Description:</label>
@@ -32,7 +38,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Date:</label>
-                            <input type="text" name="date"
+                            <input type="date" name="date"
                                 class="w-full py-2 px-3 text-sm bg-slate-200 rounded outline-none"
                                 value="<%= data.date %>">
                         </div>
@@ -40,14 +46,11 @@
                             <label for="">State:</label>
                             <select name="state" id=""
                                 class="w-full py-2 px-3 text-sm bg-slate-200 rounded outline-none">
-                                <option value="In Queue" selected="<%=data.state=='In Queue' ? true: false %>">In Queue
-                                </option>
-                                <option value="schedule" selected="<%=data.state=='schedule' ? true: false %>">Scheduled
-                                </option>
-                                <option value="cancel" selected="<%=data.state=='cancel' ? true: false %>">Canceled
-                                </option>
-                                <option value="complete" selected="<%=data.state=='complete' ? true: false %>">Completed
-                                </option>
+                                <option value="<%= data.state %>" selected disabled hidden><%= data.state %></option>
+                                <option value="In Queue">In Queue</option>
+                                <option value="schedule">Schedule</option>
+                                <option value="cancel">Cancel</option>
+                                <option value="complete">Completed</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -69,13 +72,13 @@
             const form = document.getElementById("form")
             form.onsubmit = (e) => {
                 e.preventDefault()
-                const { createdBy, assignTo, description, date, state, id } = e.target
+                const { createdBy, assignedTo, description, date, state, id } = e.target
                 fetch(`/${id.value}`, {
                     method: "PUT",
                     headers: {
                         'Content-type': "application/json"
                     },
-                    body: JSON.stringify({ createdBy: createdBy.value, assingedTo: assignTo.value, description: description.value, date: date.value, state: state.value })
+                    body: JSON.stringify({ createdBy: createdBy.value, assignedTo: assignedTo.value, description: description.value, date: date.value, state: state.value })
                 }).then(res => res.json()).then(data => data ? window.location.href = "/" : console.log(data))
             }
 
