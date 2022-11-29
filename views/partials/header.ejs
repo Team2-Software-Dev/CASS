@@ -17,6 +17,25 @@
     <link rel="stylesheet" href="css/style.css">
 
 
+    <script>
+        const user = localStorage.getItem("SDP_user")
+        if (!user) {
+            const pathName = window.location.pathname
+            if (pathName.includes("/update")) {
+                window.location.href = "/"
+            }
+        }
+        else {
+        }
+
+        const logout = () => {
+            localStorage.removeItem("SDP_user")
+            const currentUrl = window.location.href
+            window.location.href = currentUrl
+        }
+    </script>
+
+
 </head>
 
 <body>
@@ -24,5 +43,24 @@
     <header class="py-10 px-3 flex justify-between items-center bg-[#3b0a1f]">
         <div class="logo">
             <h2 class="text-xl text-white">Service Desk Portal : Group 2</h2>
+        </div>
+        <div class="links flex items-center gap-3 text-white">
+            <script>
+                if (!user) {
+                    document.write(
+                        `
+                        <a href="/login" class="shadow py-1 px-5 rounded-full bg-slate-200 text-sky-700">Login</a>
+                        <a href="/register" class="shadow py-1 px-5 rounded-full bg-sky-200 text-slate-700">Register</a>
+                        `
+                    )
+                }
+                else {
+                    document.write(
+                        `
+                        <button class="shadow py-1 px-5 rounded-full bg-red-600 text-slate-100" onclick="logout()">Logout</button>
+                        `
+                    )
+                }
+            </script>
         </div>
     </header>

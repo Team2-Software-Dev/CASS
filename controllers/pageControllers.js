@@ -73,3 +73,17 @@ export const addDataPage = async (req, res) => {
     }
     res.status(201).render("add", payload)
 }
+
+export const login = async (req, res) => {
+    const payload = {
+        title: "Login"
+    }
+    res.status(200).render("login", payload)
+}
+
+export const register = async (req, res) => {
+    const payload = {
+        title: "Register"
+    }
+    res.status(200).render("register", payload)
+}
