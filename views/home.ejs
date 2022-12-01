@@ -48,8 +48,16 @@
                                 <th class="py-1 px-3">Description:</th>
                                 <th class="py-1 px-3">Date:</th>
                                 <th class="py-1 px-3">State:</th>
-                                <th class="py-1 px-3">Edit</th>
-                                <th class="py-1 px-3">Delete</th>
+                                <script>
+                                    if (user) {
+                                        document.write(
+                                            `
+                                            <th class="py-1 px-3">Edit</th>
+                                            <th class="py-1 px-3">Delete</th>
+                                            `
+                                        )
+                                    }
+                                </script>
                             </tr>
                         </thead>
                         <tbody>
@@ -66,7 +74,8 @@
                                         <%= data[i].assignedTo %>
                                     </td>
                                     <td>
-                                        <%= data[i].description %>
+                                        <%= data[i].description.slice(0, 20) %>
+                                            <%= data[i].description.length> 20 ? "..." : "" %>
                                     </td>
                                     <td>
                                         <%= data[i].date %>
@@ -74,18 +83,26 @@
                                     <td>
                                         <%= data[i].state %>
                                     </td>
-                                    <td>
-                                        <a href="/update/<%= data[i]._id %>"
-                                            style="font-size: 20px; text-decoration: none;">
-                                            &#9998;
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <button onclick="handleDelete('<%= data[i]._id %>')"
-                                            style="border: none; font-size: 20px;">
-                                            &#128465;
-                                        </button>
-                                    </td>
+                                    <script>
+                                        if (user) {
+                                            document.write(
+                                                `
+                                                <td>
+                                                    <a href="/update/<%= data[i]._id %>"
+                                                        style="font-size: 20px; text-decoration: none;">
+                                                        &#9998;
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <button onclick="handleDelete('<%= data[i]._id %>')"
+                                                        style="border: none; font-size: 20px;">
+                                                        &#128465;
+                                                    </button>
+                                                </td>
+                                                `
+                                            )
+                                        }
+                                    </script>
                                 </tr>
                                 <% } %>
                         </tbody>

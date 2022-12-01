@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import connectDB from "./config/db.js"
 import pageRoutes from "./routes/routes.js"
+import authRoutes from "./routes/authRoutes.js"
 import path from "path"
 import { fileURLToPath } from "url"
 
@@ -32,6 +33,7 @@ app.use(express.json())
 
 
 // Routes
+app.use("/api/auth/", authRoutes)
 app.use("/", pageRoutes)
 
 app.use(express.static(path.join(__dirname, "public")))
